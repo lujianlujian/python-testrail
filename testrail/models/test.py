@@ -189,3 +189,47 @@ class Test(object):
 
     def add_result(self):
         raise NotImplementedError
+        
+    def add_result(self,
+                   status_name=None,
+                   comment=None,
+                   version=None,
+                   elapsed=None,
+                   defects=None,
+                   assignedto=None):
+        """
+        Add test result in this test.
+        Available for update:
+            status            -- Passed/Blocked/Retest/Failed ('untested' not supported)
+            comment           -- The comment / description for the test result
+            version           -- The version or build you tested against
+            elapsed           -- The time it took to execute the test, e.g. "30s" or "1m 45s"
+            defects           -- A comma-separated list of defects to link to the test result
+            assigned          -- A user name the test should be assigned to
+            customfields      -- Custom fields are supported as well and must be submitted with their system name
+        Return updated Result object for this test.
+
+        :rtype: testrail.models.Result
+        """
+        data = {}
+
+        if status_name is not None:
+            data['status_id'] = testrail.core.data.TestrailData.get_status_by_name(status_name).id
+
+        if comment is not None:
+            data['comment'] = comment
+
+        if version is not None:
+            data['version'] = version
+
+        if elapsed is not None:
+            data['elapsed'] = elapsed
+
+        if defects is not None:
+            data['defects'] = defects
+
+        if assignedto is not None:
+            data['assignedto_id'] = testrail.core.data.TestrailData.get_user_by_name(assignedto).id
+
+        return testrail.core.data.TestrailData.add_test_result(self.id, **data)
+        
