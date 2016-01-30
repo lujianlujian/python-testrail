@@ -883,6 +883,13 @@ class TestrailData(object):
         return None
 
     @staticmethod
+    def get_status_by_name(status_name):
+        for s in TestrailData.get_statuses():
+            if s.label.upper() in status_name.upper():
+                return s
+        return None
+
+    @staticmethod
     def get_statuses():
         """
         :rtype: list of [testrail.models.Status]
