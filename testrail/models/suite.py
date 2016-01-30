@@ -173,7 +173,7 @@ class Suite(object):
             'description': description,
             'suite_id': self.id
         }
-        return testrail.core.data.TestrailData.add_section(self.project_id, **parameters)
+        return testrail.core.data.TestrailData.add_section(self.__project_id, **parameters)
 
     ###########################################################################
     # Query Methods
