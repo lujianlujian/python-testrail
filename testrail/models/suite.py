@@ -279,7 +279,7 @@ class Suite(object):
         else:
             parameters['type_id'] = [utils.guess_case_type_id(m) for m in filters['types']]
 
-        return testrail.core.data.TestrailData.get_cases(self.project_id, self.id, **parameters)
+        return testrail.core.data.TestrailData.get_cases(self.__project_id, self.id, **parameters)
 
     def get_case(self, case_title):
         """
