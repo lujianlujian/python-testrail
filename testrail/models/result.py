@@ -34,7 +34,10 @@ class Result(object):
         self.__version = attributes['version']
         self.__created_on = datetime.fromtimestamp(attributes['created_on'])
         self.__created_by = int(attributes['created_by'])
-        self.__assigned_to = int(attributes['assignedto_id'])
+        try:
+            self.__assigned_to = int(attributes['assignedto_id'])
+        except TypeError:
+            self.__assigned_to = None
         self.__comment = attributes['comment']
         self.__elapsed = attributes['elapsed']
         self.__defects = attributes['defects']
